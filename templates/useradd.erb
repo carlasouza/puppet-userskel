@@ -1,0 +1,21 @@
+# Default values for useradd(8)
+
+SHELL=<%= @shell %>
+
+<% unless @group.empty? %>
+GROUP=<%= @group %>
+<% end %>
+
+HOME=<%= @home %>
+
+INACTIVE=<%= @inactive %>
+
+<% unless @expire.empty? %>
+EXPIRE=<%= @expire %>
+<% end %>
+
+SKEL=<%= @skel_dir %>
+
+CREATE_MAIL_SPOOL=<%= @create_mail_spool %>
+
+
