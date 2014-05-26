@@ -24,12 +24,11 @@
 # === Examples
 #
 #  class { user-skel:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ]
 #  }
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Carla Souza <contact@carlasouza.com>
 #
 # === Copyright
 #
@@ -44,36 +43,37 @@ class user {
                 $inactive          = -1,
                 $expire            = '',
                 $skel_dir          = '/etc/skel',
-                $create_mail_spool = 'yes',
-                $dot_files         = ['.bashrc', '.bash_logout', '.profile']
+                $create_mail_spool = 'yes'
   ) {
 
-  case $::operatingsystem {
+    case $::operatingsystem {
 
-    'debian', 'ubuntu': {
-      file {
-        '/etc/default/useradd':
-          content => template('useradd.erb');
-        $skel_dir:
-          ensure => 'directory',
-          purge  => true;
-        $dot_files:
-          ensure => file,
-          path   => "$skel_dir/$name",
-          source => "puppet:///modules/user_skel/$name",
-          owner  => 0,
-          mode   => 0644
+      'debian', 'ubuntu': {
+        file {
+          '/etc/default/useradd':
+            content => template('useradd.erb');
+          $skel_dir:
+            ensure => 'directory',
+            recursive => true,
+            purge  => true;
+          $dot_files:
+            ensure    => directory,
+            path      => "$skel_dir/$name",
+            recursive => true,
+            source    => "puppet:///modules/user_skel/$name",
+            owner     => 0,
+            mode      => 0644
+        }
       }
-    }
-    default: {
-      warn "[user_skel] Operating System '$::operatingsystem' not supported"
-    }
+      default: {
+        warn "[user_skel] Operating System '$::operatingsystem' not supported"
+      }
 
+    }
   }
-
-}
 }
 
+# Example
 user::skel {'default':
   shell => '/bin/bash'
 }
