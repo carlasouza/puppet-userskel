@@ -1,0 +1,26 @@
+{
+  "name": "carlasouza-userskel",
+  "version": "0.0.1",
+  "author": "Carla Souza",
+  "license": "GPLv3+",
+  "summary": "Manage the skeleton used by `useradd` for user creation",
+  "source": "http://github.com/carlasouza/puppet-userskel",
+  "project_page": "(https://forge.puppetlabs.com/carlasouza/userskel)",
+  "issues_url": "http://github.com/carlasouza/puppet-userskel/issues",
+  "tags": ["useradd", "user", "skel", "skeleton"],
+  "operatingsystem_support": [
+    {
+    "operatingsystem":"ArchLinux",
+    },
+    {
+    "operatingsystem": "Debian"
+    },
+    {
+    "operatingsystem": "Fedora"
+    },
+    {
+    "operatingsystem": "Ubuntu"
+    }
+   ],
+  "dependencies": []
+}

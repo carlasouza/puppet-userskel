@@ -1,79 +1,52 @@
-# == Class: user-skel
+# == Define: userskel
 #
-# Full description of class user-skel here.
-#
-# === Parameters
-#
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if it
-#   has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should not be used in preference to class parameters  as of
-#   Puppet 2.6.)
+# Manage the skeleton used by useradd for user creation.
 #
 # === Examples
 #
-#  class { user-skel:
+#  userskel { 'server':
+#    shell             => '/bin/nologin',
+#    create_mail_spool => 'yes'
+#  }
+#
+#  userskel { 'desktop':
+#    shell => '/bin/zsh',
+#    group => '1001'
 #  }
 #
 # === Authors
 #
 # Carla Souza <contact@carlasouza.com>
-#
-# === Copyright
-#
-# Copyright 2013 Your name here, unless otherwise noted.
-#
-class user {
 
-  define skel (
-                $shell             = '/bin/sh',
-                $home              = '/home',
-                $group             = '',
-                $inactive          = -1,
-                $expire            = '',
-                $skel_dir          = '/etc/skel',
-                $create_mail_spool = 'yes'
-  ) {
+define userskel (
+  $group             = '100',
+  $home              = '/home',
+  $inactive          = -1,
+  $expire            = '',
+  $shell             = '/bin/bash',
+  $skel_dir          = '/etc/skel',
+  $create_mail_spool = 'no'
+) {
 
-    case $::operatingsystem {
-
-      'debian', 'ubuntu': {
-        file {
-          '/etc/default/useradd':
-            content => template('useradd.erb');
-          $skel_dir:
-            ensure => 'directory',
-            recursive => true,
-            purge  => true;
-          $dot_files:
-            ensure    => directory,
-            path      => "$skel_dir/$name",
-            recursive => true,
-            source    => "puppet:///modules/user_skel/$name",
-            owner     => 0,
-            mode      => 0644
-        }
+  case $operatingsystem {
+    'ArchLinux', 'Debian', 'Fedora', 'Ubuntu': {
+      file {
+        '/etc/default/useradd':
+          content => template('userskel/useradd.erb');
+        $skel_dir:
+          ensure  => directory,
+          path    => "$skel_dir",
+          recurse => true,
+          source  => [
+            "puppet:///modules/userskel/$name",
+            'puppet:///modules/userskel/default'
+          ],
+          owner   => 0,
+          mode    => 0644
       }
-      default: {
-        warn "[user_skel] Operating System '$::operatingsystem' not supported"
-      }
-
+    }
+    default: {
+      fail("[user_skel] Operating System '$::operatingsystem' not supported")
     }
   }
-}
-
-# Example
-user::skel {'default':
-  shell => '/bin/bash'
 }

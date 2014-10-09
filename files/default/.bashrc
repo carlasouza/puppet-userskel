@@ -15,6 +15,7 @@ export HISTIGNORE="clear:[bf]g:exit:vim *.bash_history"
 export HISTTIMEFORMAT='%m - %H:%M:%S '
 export HISTSIZE=500000000
 export HISTFILESIZE=500000000
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
