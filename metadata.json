@@ -10,7 +10,7 @@
   "tags": ["useradd", "user", "skel", "skeleton"],
   "operatingsystem_support": [
     {
-    "operatingsystem":"ArchLinux",
+    "operatingsystem":"ArchLinux"
     },
     {
     "operatingsystem": "Debian"
