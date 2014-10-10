@@ -2,7 +2,7 @@
 
 Manage the skeleton used by `useradd` for user creation.
 
-It already comes with default content for `.bashrc`, `.bash_logout`, `.gemrc`, [`.gitignore_global`](https://.github.com/Swader/7844111) and `.profile` files inside `/etc/skel` directory.
+It already comes with default content for `.bashrc`, `.bash_logout`, `.gemrc`, [`.gitignore_global`](https://gist.github.com/Swader/7844111) and `.profile` files inside `files/default/` directory of this module.
 
 Modify, remove or add more files at `files/default` as desired, or create new collections by creating a subfolder at `files/`. It will look for `files/$name` as skel source. If non existent, the `default` directory will be used as source.
 
