@@ -8,6 +8,20 @@ Modify, remove or add more files at `files/default` as desired, or create new co
 
 # Examples
 
+Default values:
+
+    userskel { 'default':
+      group             => '100',
+      home              => '/home/',
+      inactive          => -1,
+      expire            => '',
+      shell             => '/bin/bash',
+      skel_dir          => '/etc/skel',
+      create_mail_spool => no
+      shell             => '/bin/nologin',
+      create_mail_spool => 'yes'
+    }
+
 Prevent any created user to ssh to your server
 
     userskel { 'server':
