@@ -18,8 +18,6 @@ Default values:
       shell             => '/bin/bash',
       skel_dir          => '/etc/skel',
       create_mail_spool => no
-      shell             => '/bin/nologin',
-      create_mail_spool => 'yes'
     }
 
 Prevent any created user to ssh to your server
